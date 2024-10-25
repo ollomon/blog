@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Etiqueta, Articulo, User
+from .models import Categoria, Etiqueta, Articulo, User, About, Link
 
 # CATEGORIAS
 class CategoriaAdmin(admin.ModelAdmin):
@@ -34,3 +34,18 @@ class ArticuloAdmin(admin.ModelAdmin):
     articulo_etiquetas.short_description = "Etiquetas"
 
 admin.site.register(Articulo, ArticuloAdmin)
+
+# ABOUT
+class AboutAdmin(admin.ModelAdmin):
+    list_display = ("descripcion", "creado")
+    readonly_fields = ("creado", "modificado")
+
+admin.site.register(About, AboutAdmin)
+
+
+# LINKS
+class LinkAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "key", "url", "icono")
+    readonly_fields = ("creado", "modificado")
+
+admin.site.register(Link, LinkAdmin)
