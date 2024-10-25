@@ -1,17 +1,39 @@
 {% extends "blog/base.html" %}
 {% load static %}
 
-{% block ultimoPost %} 
-<div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-    <div class="col-lg-6 px-0">
-      <h1 class="display-4 fst-italic">Título del último post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-      <p class="lead mb-0"><a href="{% url 'post' %}" class="text-body-emphasis fw-bold">Seguir leyendo...</a></p>
-    </div>
-</div>
-{% endblock  %}
-
 {% block content %}
+
+{% if request.path == '/' %}
+    {% comment %} ULTIMO POST {% endcomment %}
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="col-lg-12 px-0">
+        <h1 class="display-4 fst-italic">Título del último post</h1>
+        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+        <p class="lead mb-0"><a href="{% url 'post' %}" class="text-body-emphasis fw-bold">Seguir leyendo...</a></p>
+        </div>
+    </div>
+{% endif %}
+
+{% if request.path == '/autor/' %}
+    <div class="alert alert-success" role="alert">
+        Todos los Artículos del Autor: <strong>AUTOR</strong>
+    </div>
+{% endif %}
+
+{% if request.path == '/categoria/' %}
+    <div class="alert alert-success" role="alert">
+        Todos los Artículos de la Categoría: <strong>CATEGORIA</strong>
+    </div>
+{% endif %}
+
+{% if request.path == '/fechas/' %}
+    <div class="alert alert-success" role="alert">
+        Todos los Artículos publicados en: <strong>MES Y AÑO</strong>
+    </div>
+{% endif %}
+
+
+{% comment %} RESTO DE LOS POSTS {% endcomment %}
 <div class="row mb-2">
     <div class="col-md-12">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -70,4 +92,11 @@
     <a class="btn btn-outline-primary rounded-pill" href="#">Anteriores</a>
     <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Siguientes</a>
 </nav>
+
+{% if request.path != '/' %}
+    <div class="my-3">
+        <a href="{% url 'inicio' %}" class="btn btn-outline-primary rounded-pill">Volver al Inicio</a>
+    </div>
+{% endif %}
+
 {% endblock %}

@@ -8,11 +8,12 @@
     <meta name="author" content="Ramón Lado">
     <title>dsBlog</title>
     <link href="{% static 'blog/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- Estilos Personalizados -->
+     {% comment %} ESTILOS PERSONALIZADOS {% endcomment %}
     <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
+        {% comment %} LINEA DE CABECERA PARA NOMBRE Y LOGO {% endcomment %}
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
               <img src="{% static 'blog/img/blogo.svg' %}" class="bi me-2" width="40" height="32" alt="Logo">
@@ -20,8 +21,6 @@
             </a>
         </header>
         <main class="mt-2">
-            {% block ultimoPost %} 
-            {% endblock  %}
             <section class="row g-5">
                 {% comment %} TODOS LOS POSTS {% endcomment %}
                 <div class="col-md-8">
@@ -80,7 +79,7 @@
                         <div class="p-4">
                           <h4 class="fst-italic">Archivos</h4>
                           <ol class="list-unstyled mb-0">
-                            <li><a href="#">August 2020</a></li>
+                            <li><a href="{% url 'fechas' %}">August 2020</a></li>
                             <li><a href="#">July 2020</a></li>
                             <li><a href="#">June 2020</a></li>
                             <li><a href="#">May 2020</a></li>
@@ -94,12 +93,13 @@
                             <li><a href="#">GitHub</a></li>
                             <li><a href="#">Twitter</a></li>
                             <li><a href="#">Facebook</a></li>
-                        </ol>
+                          </ol>
+                        </div>
                     </div>
                 </aside>
             </section>
-
         </main>
+        {% comment %} PIE DE PAGINA {% endcomment %}
         <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
             <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
             <p class="mb-0">
