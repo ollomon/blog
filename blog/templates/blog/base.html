@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Ramón Lado">
+    <title>dsBlog</title>
+    <link href="{% static 'blog/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Estilos Personalizados -->
+    <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+              <img src="{% static 'blog/img/blogo.svg' %}" class="bi me-2" width="40" height="32" alt="Logo">
+              <span class="fs-4">Blog</span>
+            </a>
+        </header>
+        <main class="mt-2">
+            {% block ultimoPost %} 
+            {% endblock  %}
+            <section class="row g-5">
+                {% comment %} TODOS LOS POSTS {% endcomment %}
+                <div class="col-md-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <aside class="col-md-4">
+                    <div class="position-sticky" style="top: 2rem;">
+                        <div class="p-4 mb-3 bg-body-tertiary rounded">
+                          <h4 class="fst-italic">Acerca de</h4>
+                          <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+                        </div>
+                
+                        <div>
+                          <h4 class="fst-italic">Entradas Recientes</h4>
+                          <ul class="list-unstyled">
+                            <li>
+                              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                                <div class="col-lg-8">
+                                  <h6 class="mb-0">Example blog post title</h6>
+                                  <small class="text-body-secondary">January 15, 2024</small>
+                                </div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                                <div class="col-lg-8">
+                                  <h6 class="mb-0">This is another blog post title</h6>
+                                  <small class="text-body-secondary">January 14, 2024</small>
+                                </div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                                <div class="col-lg-8">
+                                  <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
+                                  <small class="text-body-secondary">January 13, 2024</small>
+                                </div>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="fst-italic">Categorías</h4>
+                            <ol class="list-unstyled mb-0">
+                              <li><a href="#">Categoría 1</a></li>
+                              <li><a href="#">Categoría 2</a></li>
+                              <li><a href="#">Categoría 3</a></li>
+                              <li><a href="#">Categoría 4</a></li>
+                            </ol>
+                        </div>
+
+                        <div class="p-4">
+                          <h4 class="fst-italic">Archivos</h4>
+                          <ol class="list-unstyled mb-0">
+                            <li><a href="#">August 2020</a></li>
+                            <li><a href="#">July 2020</a></li>
+                            <li><a href="#">June 2020</a></li>
+                            <li><a href="#">May 2020</a></li>
+                            <li><a href="#">April 2020</a></li>
+                          </ol>
+                        </div>
+                
+                        <div class="p-4">
+                          <h4 class="fst-italic">Redes Sociales</h4>
+                          <ol class="list-unstyled">
+                            <li><a href="#">GitHub</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">Facebook</a></li>
+                        </ol>
+                    </div>
+                </aside>
+            </section>
+
+        </main>
+        <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+            <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            <p class="mb-0">
+              <a href="#">Back to top</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+# archivos propios de recursos temporales
+/recursos
+# archivos de entorno y dependencias
+env/
+.env
+index_modelo.html
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Configuración y archivos de base de datos locales
+db.sqlite3
+db.sqlite3-journal
+# Archivos y directorios generados por Django
+/staticfiles/
+/media/
+/*.log
+# Configuración de IDE y entornos de desarrollo
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+# Archivos de migración de Django
+**/migrations/*
+# Excluye esta carpeta porque es necesaria
+!**/migrations/__init__.py 
+# Archivos de compilación y cache de Python
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+# Archivos de cobertura y prueba
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+# Archivos de configuración del sistema operativo
+.DS_Store
+Thumbs.db
+# Configuración y archivos de Docker (si se utiliza)
+docker-compose.yml
+Dockerfile
