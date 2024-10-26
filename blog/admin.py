@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import Categoria, Etiqueta, Articulo, User, About, Link
 
+admin.site.site_header = "Administración del Blog"
+admin.site.index_title = "Panel de Control"
+admin.site.site_title = "Blog"
+
 # CATEGORIAS
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ("nombre", "activa")
