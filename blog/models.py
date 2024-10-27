@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
 
 # MODELO CATEGORIAS
 class Categoria(models.Model):
@@ -38,7 +38,8 @@ class Etiqueta(models.Model):
 class Articulo(models.Model):
     titulo = models.CharField(max_length=250, verbose_name="Título")
     subtitulo = models.TextField(verbose_name="Subtítulo")
-    contenido = models.TextField(verbose_name="Contenido")
+    #contenido = models.TextField(verbose_name="Contenido")
+    contenido = RichTextField(verbose_name="Contenido")
     imagen = models.ImageField(upload_to='posts', null=True, blank=True, verbose_name="Imagen")
     publicado = models.BooleanField(default=False, verbose_name="Publicado")
     

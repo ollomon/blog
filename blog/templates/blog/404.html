@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <hr>
+    <h1>¡ Página no encontrada !</h1>
+    <hr>
+
+    {% if request.path != '/' %}
+        <div class="my-3">
+            <a href="{% url 'inicio' %}" class="btn btn-outline-primary rounded-pill">Volver al Inicio</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

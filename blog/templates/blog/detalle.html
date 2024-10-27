@@ -3,17 +3,22 @@
 
 {% block content %}
 <article class="blog-post">
-    <svg class="bd-placeholder-img" width="100%" height="450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-    <a href="{% url 'categoria' %}"><strong class="d-inline-block mb-2 mt-3 text-primary-emphasis">Categoría 1</strong></a>
-    <h2 class="display-5 link-body-emphasis mb-1">Título post</h2>
-    <p class="blog-post-meta">January 1, 2021 by <a href="{% url 'autor' %}">Mark</a></p>
-
-    <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+    <img src="{{ articulo.imagen.url }}" class="img-fluid" alt="imagen">
+    <a href="{% url 'categoria' %}"><strong class="d-inline-block mb-2 mt-3 text-primary-emphasis">{{ articulo.categoria }}</strong></a>
+    <h2 class="display-5 link-body-emphasis mb-1">{{ articulo.titulo }}</h2>
+    <p class="blog-post-meta">{{ articulo.creado|date:"d M Y" }} por <a href="{% url 'autor' %}">{{ articulo.autor }}</a></p>
     <hr>
-    <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas molestiae qui tenetur dolore dolorum cumque vel dolores? Tempore dolore eum voluptate odit ipsam et laborum iusto nisi inventore consectetur repudiandae sint neque, reprehenderit a minima ex optio aliquid repellendus fugit. Quasi quas eius, quos reprehenderit illo pariatur dolor natus inventore?</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur sequi amet qui molestiae dignissimos voluptates illo repudiandae magnam libero voluptatibus modi similique distinctio perferendis id, ipsam enim earum exercitationem deserunt reiciendis temporibus placeat consequuntur? Ut nemo nisi quod aperiam facilis optio iusto voluptatum voluptatem illum quibusdam laudantium aspernatur non, itaque expedita quis ea quos molestias officiis. Fugiat porro eius cupiditate, voluptates voluptatem, neque laudantium debitis modi ullam id minus praesentium eaque tenetur facilis, voluptatum recusandae amet. Facilis numquam aut eos dicta ipsam officia eligendi atque perferendis provident suscipit in impedit unde quia iure laboriosam eveniet doloribus earum fugiat, commodi deserunt.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo veritatis doloremque labore similique obcaecati, dolore optio corrupti itaque magni officia saepe facere consequuntur magnam deleniti repellendus illum. Qui nam repellat dolore porro? Eveniet, ducimus placeat consequuntur, quod id blanditiis culpa corporis laborum repellendus quis praesentium, facere assumenda rerum ratione numquam.</p>
+    <p class="lead my-3">{{ articulo.subtitulo }}</p>
+    <hr>
+    <p>{{ articulo.contenido|safe }}</p>
+    <strong>Etiquetas:</strong>
+    {% for etiqueta in articulo.etiquetas.all %}
+        <span class="badge text-bg-primary">{{ etiqueta.nombre }}</span>
+    {% endfor %}
+    <hr>
 </article>
-<a href="{% url 'inicio' %}" class="btn btn-outline-primary rounded-pill mb-3">Volver al Inicio</a>
+
+<div class="my-3">
+    <a href="{% url 'inicio' %}" class="btn btn-outline-primary rounded-pill mb-3">Volver al Inicio</a>
+</div>
 {% endblock %}
