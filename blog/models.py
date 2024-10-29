@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 from ckeditor.fields import RichTextField
+from django.core.exceptions import ValidationError
+import os
+
 
 # MODELO CATEGORIAS
 class Categoria(models.Model):
@@ -34,22 +38,33 @@ class Etiqueta(models.Model):
 
 # MODELO AUTOR - USUARIOS REGISTRADOS EN LA APLICACIÓN --> Importado de la tabla de usuarios
 
+# Función para limitar el tamaño de la imagen a subir en el artículo
+def validar_tamano_imagen(imagen):
+    max_size_kb = 2048  # Tamaño máximo en KB (2 MB)
+    if imagen.size > max_size_kb * 1024:
+        raise ValidationError("La imagen no debe exceder los 2 MB.")
+
 # MODELO DE ARTICULOS (POSTS)
 class Articulo(models.Model):
     titulo = models.CharField(max_length=250, verbose_name="Título")
     subtitulo = models.TextField(verbose_name="Subtítulo")
     #contenido = models.TextField(verbose_name="Contenido")
     contenido = RichTextField(verbose_name="Contenido")
-    imagen = models.ImageField(upload_to='posts', null=True, blank=True, verbose_name="Imagen")
+    imagen = models.ImageField(upload_to='posts', null=True, blank=True, verbose_name="Imagen", validators=[validar_tamano_imagen])
     publicado = models.BooleanField(default=False, verbose_name="Publicado")
     
     # Campos con relaciones
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='get_articulos', verbose_name="Categoría")
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='get_articulos',  verbose_name="Autor")
-    etiquetas = models.ManyToManyField(Etiqueta, verbose_name="Etiquetas")
+    etiquetas = models.ManyToManyField(Etiqueta, blank=True, null=True, verbose_name="Etiquetas")
+
+    likes = models.ManyToManyField(User, blank=True, null=True, related_name='blog_articulos', verbose_name="Me Gusta")
 
     creado = models.DateTimeField(auto_now_add=True, verbose_name="Fecha Creación")
     modificado = models.DateTimeField(auto_now=True, verbose_name="Fecha Modificación")
+
+    def total_likes(self):
+        return self.likes.count()
 
     class Meta:
         verbose_name = "Artículo"
@@ -58,7 +73,23 @@ class Articulo(models.Model):
     
     def __str__(self):
         return self.titulo
-    
+
+    def save(self, *args, **kwargs):
+        # Si ya existe una imagen y está siendo reemplazada o eliminada
+        if self.pk:
+            old_imagen = Articulo.objects.get(pk=self.pk).imagen
+            if old_imagen and old_imagen != self.imagen:
+                old_imagen_path = os.path.join(settings.MEDIA_ROOT, old_imagen.path)
+                if os.path.isfile(old_imagen_path):
+                    os.remove(old_imagen_path)
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Eliminar la imagen física cuando se elimina el artículo completo
+        if self.imagen and os.path.isfile(self.imagen.path):
+            os.remove(self.imagen.path)
+        super().delete(*args, **kwargs)
+
 
 # MODELO ABOUT (Acerca de...)
 class About(models.Model):

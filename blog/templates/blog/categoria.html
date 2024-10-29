@@ -35,7 +35,11 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen">
+                {% if articulo.imagen %}
+                    <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen">
+                {% else %}
+                    <img src="{% static 'blog/img/no-image.svg' %}" class="bd-placeholder-img"> 
+                {% endif %}
             </div>
         </div>
     </div>

@@ -31,9 +31,23 @@
                     {% endblock %}
                 </div>
                 <aside class="col-md-4">
+                    {% if request.path == '/' %}
+                      {% comment %} ARTICULOS POR PAGINA {% endcomment %}
+                      <form action="" method="get">
+                        <div class="card-body mb-2 d-flex align-items-center gap-2 justify-content-center">
+                          <label for="items_per_page" class="col-form-label" style="white-space: nowrap;">Artículos por Página:</label>
+                          <select name="items_per_page" class="form-select form-select-sm" id="items_per_page" style="width: 80px;">
+                              <option value="2" {% if request.session.items_per_page == 2 %} selected {% endif %}>2</option>
+                              <option value="4" {% if request.session.items_per_page == 4 %} selected {% endif %}>4</option>
+                              <option value="6" {% if request.session.items_per_page == 6 %} selected {% endif %}>6</option>
+                          </select>
+                          <button type="submit" class="btn btn-outline-primary">Actualizar</button>
+                        </div>
+                      </form>
+                    {% endif %}
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-body-tertiary rounded">
-                          <h4 class="fst-italic">Acerca de</h4>
+                          <h4 class="fst-italic">Acerca de ...</h4>
                           <p class="mb-0">{{ ABOUT }}</p>
                         </div>
                         <div>
@@ -42,7 +56,12 @@
                             {% for entrada in ENTRADAS %}
                               <li>
                                 <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="{% url 'post' entrada.id %}">
-                                <img src="{{ entrada.imagen.url }}" class="bd-placeholder-img" width="100%" height="96" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%" fill="#777" alt="imagen">
+                                {% if entrada.imagen %}
+                                    <img src="{{ entrada.imagen.url }}" class="bd-placeholder-img" 
+                                {% else %}
+                                    <img src="{% static 'blog/img/no-image.svg' %}" class="bd-placeholder-img" 
+                                {% endif %}
+                                width="100%" height="96" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%" fill="#777" alt="imagen">
                                 <div class="col-lg-8">
                                   <h6 class="mb-0">{{ entrada.titulo }}</h6>
                                   <small class="text-body-secondary">{{ entrada.creado|date:"d M Y" }}</small>

@@ -2,25 +2,6 @@
 {% load static %}
 
 {% block content %}
-
-{% comment %} {% if request.path == '/autor/' %}
-    <div class="alert alert-success" role="alert">
-        Todos los Artículos del Autor: <strong>AUTOR</strong>
-    </div>
-{% endif %}
-
-{% if request.path == '/categoria/' %}
-    <div class="alert alert-success" role="alert">
-        Todos los Artículos de la Categoría: <strong>CATEGORIA</strong>
-    </div>
-{% endif %}
-
-{% if request.path == '/fechas/' %}
-    <div class="alert alert-success" role="alert">
-        Todos los Artículos publicados en: <strong>MES Y AÑO</strong>
-    </div>
-{% endif %} {% endcomment %}
-
 {% for articulo in articulos %} 
     {% if forloop.first and articulos.number == 1 %}
         {% if request.path == '/' %}
@@ -61,7 +42,11 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen">
+                {% if articulo.imagen %}
+                    <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen">
+                {% else %}
+                    <img src="{% static 'blog/img/no-image.svg' %}" class="bd-placeholder-img"> 
+                {% endif %}
             </div>
         </div>
     </div>

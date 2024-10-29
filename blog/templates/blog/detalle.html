@@ -3,7 +3,10 @@
 
 {% block content %}
 <article class="blog-post">
-    <img src="{{ articulo.imagen.url }}" class="img-fluid" alt="imagen">
+    {% if articulo.imagen %}
+        <img src="{{ articulo.imagen.url }}" class="img-fluid" alt="imagen">
+    {% endif %}
+    <br>
     <a href="{% url 'categoria' articulo.categoria.id %}"><strong class="d-inline-block mb-2 mt-3 text-primary-emphasis">{{ articulo.categoria }}</strong></a>
     <h2 class="display-5 link-body-emphasis mb-1">{{ articulo.titulo }}</h2>
     <p class="blog-post-meta">{{ articulo.creado|date:"d M Y" }} por <a href="{% url 'autor' articulo.autor.id %}">{{ articulo.autor }}</a></p>
@@ -16,6 +19,22 @@
         <span class="badge text-bg-primary">{{ etiqueta.nombre|upper }}</span>
     {% endfor %}
     <hr>
+    <form action="{% url 'like_articulo' articulo.id %}" method="post">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            <button type="submit" 
+                    class="btn btn-sm rounded-pill {% if liked %}btn-danger{% else %}btn-primary{% endif %}"
+                    name="articulo_id" value="{{ articulo.id }}" {% if liked %}disabled{% endif %}>
+                Me gusta
+                <span class="badge bg-secondary">{{ total_likes }}</span>
+            </button>
+        {% else %}
+            <a href="#" class="btn btn-sm btn-primary rounded-pill disabled">
+                Me Gusta
+                <span class="badge bg-secondary">{{ total_likes }}</span>
+            </a>
+        {% endif %}
+    </form>
 </article>
 
 <div class="my-3">

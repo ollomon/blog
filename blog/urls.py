@@ -9,4 +9,6 @@ urlpatterns = [
     path('autor/<int:autor_id>', views.autor, name='autor'),
     path('fechas/<int:mes_id>/<int:ano_id>', views.fechas, name='fechas'),
 
+    # Likes de un artículo
+    path('like/<int:articulo_id>', views.like_articulo, name='like_articulo'),
 ]
