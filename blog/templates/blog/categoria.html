@@ -1,0 +1,55 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="alert alert-success" role="alert">
+    Todos los Artículos de la Categoría: <strong>{{ categoria.nombre }}</strong>
+</div>
+
+{% for articulo in categoria.get_articulos.all %} 
+    {% comment %} RESTO DE LOS POSTS {% endcomment %}
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-7">
+                <div class="card-body">
+                    <strong class="d-inline-block mb-2 text-primary-emphasis">
+                        {{ articulo.categoria }}
+                    </strong>
+                    <h4 class="mb-0">
+                        {{ articulo.titulo }}
+                    </h4>
+                    <div class="mb-1 text-muted">
+                        {{ articulo.creado|date:"d M Y"}}
+                    </div>
+                    <p class="card-text mb-auto">
+                        {{ articulo.subtitulo|slice:":106"}}...
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <a href="{% url 'post' articulo.id %}" class="stretched-link">
+                                Seguir leyendo
+                            </a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen">
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-danger" role="alert">
+        <strong> No existen Artículos de la Categoría: {{ categoria.nombre }}</strong>
+    </div>
+{% endfor %}
+
+<hr>
+{% if request.path != '/' %}
+    <div class="my-3">
+        <a href="{% url 'inicio' %}" class="btn btn-outline-primary rounded-pill">Volver al Inicio</a>
+    </div>
+{% endif %}
+
+{% endblock %}

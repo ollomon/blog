@@ -36,63 +36,42 @@
                           <h4 class="fst-italic">Acerca de</h4>
                           <p class="mb-0">{{ ABOUT }}</p>
                         </div>
-                
                         <div>
                           <h4 class="fst-italic">Entradas Recientes</h4>
                           <ul class="list-unstyled">
-                            <li>
-                              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                            {% for entrada in ENTRADAS %}
+                              <li>
+                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="{% url 'post' entrada.id %}">
+                                <img src="{{ entrada.imagen.url }}" class="bd-placeholder-img" width="100%" height="96" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%" fill="#777" alt="imagen">
                                 <div class="col-lg-8">
-                                  <h6 class="mb-0">Example blog post title</h6>
-                                  <small class="text-body-secondary">January 15, 2024</small>
+                                  <h6 class="mb-0">{{ entrada.titulo }}</h6>
+                                  <small class="text-body-secondary">{{ entrada.creado|date:"d M Y" }}</small>
                                 </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                                <div class="col-lg-8">
-                                  <h6 class="mb-0">This is another blog post title</h6>
-                                  <small class="text-body-secondary">January 14, 2024</small>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                                <div class="col-lg-8">
-                                  <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
-                                  <small class="text-body-secondary">January 13, 2024</small>
-                                </div>
-                              </a>
-                            </li>
+                                </a>
+                              </li>
+                            {% endfor %}
                           </ul>
                         </div>
                         <div class="p-4">
                             <h4 class="fst-italic">Categorías</h4>
                             <ol class="list-unstyled mb-0">
-                                {% for item in CATEGORIAS %}
+                                {% for categoria in CATEGORIAS %}
                                     <li>
-                                      <a href="{% url 'categoria' %}" class="text-decoration-none">
-                                          {{ item.nombre }}
+                                      <a href="{% url 'categoria' categoria.id %}" class="text-decoration-none">
+                                          {{ categoria.nombre }}
                                       </a>
                                     </li>
                                 {% endfor %}
                             </ol>
                         </div>
-
                         <div class="p-4">
                           <h4 class="fst-italic">Archivos</h4>
                           <ol class="list-unstyled mb-0">
-                            <li><a href="{% url 'fechas' %}">August 2020</a></li>
-                            <li><a href="#">July 2020</a></li>
-                            <li><a href="#">June 2020</a></li>
-                            <li><a href="#">May 2020</a></li>
-                            <li><a href="#">April 2020</a></li>
+                            {% for fecha in FECHAS %}
+                              <li><a href="{% url 'fechas' fecha.month fecha.year %}">{{fecha|date:"F Y"}}</a></li>
+                            {% endfor %}
                           </ol>
                         </div>
-                
                         <div class="p-4">
                           <h4 class="fst-italic">Redes Sociales</h4>
                           <ol class="list-unstyled">
@@ -144,10 +123,7 @@
         </main>
         {% comment %} PIE DE PAGINA {% endcomment %}
         <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-            <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            <p class="mb-0">
-              <a href="#">Back to top</a>
-            </p>
+            <p>Blog - <a href="https://duyosoft.com/" class="text-decoration-none" target="_blank">DuyoSoft</a></p>
         </footer>
     </div>
 </body>

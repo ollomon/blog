@@ -44,8 +44,8 @@ class Articulo(models.Model):
     publicado = models.BooleanField(default=False, verbose_name="Publicado")
     
     # Campos con relaciones
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="Categoría")
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='get_articulos', verbose_name="Categoría")
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='get_articulos',  verbose_name="Autor")
     etiquetas = models.ManyToManyField(Etiqueta, verbose_name="Etiquetas")
 
     creado = models.DateTimeField(auto_now_add=True, verbose_name="Fecha Creación")

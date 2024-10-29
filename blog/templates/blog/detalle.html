@@ -4,16 +4,16 @@
 {% block content %}
 <article class="blog-post">
     <img src="{{ articulo.imagen.url }}" class="img-fluid" alt="imagen">
-    <a href="{% url 'categoria' %}"><strong class="d-inline-block mb-2 mt-3 text-primary-emphasis">{{ articulo.categoria }}</strong></a>
+    <a href="{% url 'categoria' articulo.categoria.id %}"><strong class="d-inline-block mb-2 mt-3 text-primary-emphasis">{{ articulo.categoria }}</strong></a>
     <h2 class="display-5 link-body-emphasis mb-1">{{ articulo.titulo }}</h2>
-    <p class="blog-post-meta">{{ articulo.creado|date:"d M Y" }} por <a href="{% url 'autor' %}">{{ articulo.autor }}</a></p>
+    <p class="blog-post-meta">{{ articulo.creado|date:"d M Y" }} por <a href="{% url 'autor' articulo.autor.id %}">{{ articulo.autor }}</a></p>
     <hr>
     <p class="lead my-3">{{ articulo.subtitulo }}</p>
     <hr>
     <p>{{ articulo.contenido|safe }}</p>
     <strong>Etiquetas:</strong>
     {% for etiqueta in articulo.etiquetas.all %}
-        <span class="badge text-bg-primary">{{ etiqueta.nombre }}</span>
+        <span class="badge text-bg-primary">{{ etiqueta.nombre|upper }}</span>
     {% endfor %}
     <hr>
 </article>

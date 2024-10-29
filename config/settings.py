@@ -68,6 +68,8 @@ TEMPLATES = [
                 'blog.processors.ctx_dic_link',
                 'blog.processors.ctx_dic_about',
                 'blog.processors.ctx_dic_categorias',
+                'blog.processors.ctx_dic_historico',
+                'blog.processors.ctx_dic_entradas_recientes',
             ],
         },
     },

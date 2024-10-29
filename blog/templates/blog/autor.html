@@ -3,25 +3,11 @@
 
 {% block content %}
 
-{% comment %} {% if request.path == '/autor/' %}
-    <div class="alert alert-success" role="alert">
-        Todos los Artículos del Autor: <strong>AUTOR</strong>
-    </div>
-{% endif %}
+<div class="alert alert-success" role="alert">
+    Todos los Artículos del Autor: <strong>{{ autor.username }}</strong>
+</div>
 
-{% if request.path == '/categoria/' %}
-    <div class="alert alert-success" role="alert">
-        Todos los Artículos de la Categoría: <strong>CATEGORIA</strong>
-    </div>
-{% endif %}
-
-{% if request.path == '/fechas/' %}
-    <div class="alert alert-success" role="alert">
-        Todos los Artículos publicados en: <strong>MES Y AÑO</strong>
-    </div>
-{% endif %} {% endcomment %}
-
-{% for articulo in articulos %} 
+{% for articulo in autor.get_articulos.all %} 
     {% if forloop.first and articulos.number == 1 %}
         {% if request.path == '/' %}
             {% comment %} PRIMER POST {% endcomment %}
@@ -68,38 +54,11 @@
     {% endif %}
 {% endfor %}
 
-{% comment %} NAVEGACION ENTRE ARTICULOS - PAGINACION {% endcomment %}
-<hr>
-<nav class="blog-pagination" aria-label="Pagination" style="margin: 0; padding: 0;">
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a href="?page=1" class="page-link">Primero</a>
-        </li>
-        {% if articulos.has_previous %}
-            <li class="page-item">
-                <a href="?page={{articulos.previous_page_number}}" class="page-link">Anterior</a>
-            </li>
-        {% endif %}
-        {% for i in aux %}
-            <li class="page-item {% if articulos.number == forloop.counter %} active {% endif %}">
-                <a href="?page={{ forloop.counter }}" class="page-link">{{ forloop.counter }}</a>
-            </li>
-        {% endfor %}
-        {% if articulos.has_next %}
-            <li class="page-item">
-                <a href="?page={{articulos.next_page_number}}" class="page-link">Siguiente</a>
-            </li>
-        {% endif %}
-        <li class="page-item">
-            <a href="?page={{articulos.paginator.num_pages}}" class="page-link">Último</a>
-        </li>
-    </ul>
-</nav>
 <hr>
 {% if request.path != '/' %}
     <div class="my-3">
         <a href="{% url 'inicio' %}" class="btn btn-outline-primary rounded-pill">Volver al Inicio</a>
     </div>
 {% endif %}
-
+    
 {% endblock %}
